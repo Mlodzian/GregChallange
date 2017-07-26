@@ -9,7 +9,7 @@ public class Driver {
     private int age;
     private Team team;
 
-    private Driver(Builder driverBuilder){
+    private Driver(Builder driverBuilder) {
         team = driverBuilder.team;
         age = driverBuilder.age;
         name = driverBuilder.name;
@@ -27,18 +27,6 @@ public class Driver {
         return age;
     }
 
-    public void setAge(int age) {
-        this.age = age;
-    }
-
-    public Team getTeam() {
-        return team;
-    }
-
-    public void setTeam(Team team) {
-        this.team = team;
-    }
-
     @Override
     public String toString() {
         return "Driver {" +
@@ -54,7 +42,8 @@ public class Driver {
         private int age;
         private Team team;
 
-        public Builder(){}
+        public Builder() {
+        }
 
         public Driver build() {
             return new Driver(this);
