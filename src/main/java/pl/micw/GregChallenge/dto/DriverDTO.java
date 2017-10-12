@@ -1,15 +1,17 @@
-package pl.micw.GregChallenge;
+package pl.micw.GregChallenge.dto;
+
+import pl.micw.GregChallenge.data.Team;
 
 /**
  * Created by Mldz on 2017-07-26.
  */
-public class Driver {
+public class DriverDTO {
 
     private String name;
     private int age;
     private Team team;
 
-    private Driver(Builder driverBuilder) {
+    private DriverDTO(Builder driverBuilder) {
         team = driverBuilder.team;
         age = driverBuilder.age;
         name = driverBuilder.name;
@@ -27,16 +29,29 @@ public class Driver {
         return age;
     }
 
+    public Team getTeam() {
+        return team;
+    }
+
+    public void setTeam(Team team) {
+        this.team = team;
+    }
+
+    public void setAge(int age) {
+
+        this.age = age;
+    }
+
     @Override
     public String toString() {
-        return "Driver {" +
+        return "DriverDTO {" +
                 "name='" + name + '\'' +
                 ", age=" + age +
                 ", team=" + team +
                 '}';
     }
 
-    static class Builder {
+    public static class Builder {
 
         private String name;
         private int age;
@@ -45,8 +60,8 @@ public class Driver {
         public Builder() {
         }
 
-        public Driver build() {
-            return new Driver(this);
+        public DriverDTO build() {
+            return new DriverDTO(this);
         }
 
         public Builder setName(String name) {
