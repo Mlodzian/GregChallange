@@ -2,45 +2,49 @@ package pl.micw.GregChallenge.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.PathVariable;
-import pl.micw.GregChallenge.controllers.DriverController;
+import pl.micw.GregChallenge.components.DriverComponent;
 import pl.micw.GregChallenge.data.Driver;
 import pl.micw.GregChallenge.data.Team;
 import pl.micw.GregChallenge.dto.DriverDTO;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
+
+import static java.util.stream.Collectors.toList;
 
 /**
  * Created by Mldz on 2017-07-24.
  */
-@Repository
+@Service
 public class DriverService {
 
     @Autowired
-    DriverController driverController;
+    DriverComponent driverController;
 
-    List<DriverDTO> driverList = new ArrayList<>();
+    List<Driver> driverList = Collections.synchronizedList(new ArrayList<>());
 
     {
-        driverList.add(new DriverDTO.Builder().setName("Rober Kubica").setAge(32).setTeam(Team.RENAULT).build());
-        driverList.add(new DriverDTO.Builder().setName("Lewis Hamilton").setTeam(Team.MERCEDES).setAge(32).build());
-        driverList.add(new DriverDTO.Builder().setName("Nico Rosberg").setTeam(Team.MERCEDES).setAge(32).build());
-        driverList.add(new DriverDTO.Builder().setName("Daniel Ricciardo").setTeam(Team.REDBULL).setAge(28).build());
-        driverList.add(new DriverDTO.Builder().setName("Michaello Cwiekaello").setTeam(Team.ISS).setAge(25).build());
+        driverList.add(Driver.builder().name("Rober Kubica").team(Team.RENAULT).age(32).build());
+        driverList.add(Driver.builder().name("Lewis Hamilton").team(Team.MERCEDES).age(32).build());
+        driverList.add(Driver.builder().name("Nico Rosberg").team(Team.MERCEDES).age(32).build());
+        driverList.add(Driver.builder().name("Daniel Ricciardo").team(Team.REDBULL).age(28).build());
+        driverList.add(Driver.builder().name("Michaello Cwiekaello").team(Team.ISS).age(25).build());
     }
 
-    private List<DriverDTO> driverInitializator() {
+    private List<Driver> driverInitializator() {
         return driverList;
     }
 
-    public List<Driver> getDrivers() {
-        return driverInitializator().stream().map(t -> driverController.mapFromDriverDTO(t)).collect(Collectors.toList());
+    public List<DriverDTO> getDrivers() {
+        return driverInitializator().stream().map(t -> driverController.mapDriverToDTO(t)).collect(toList());
     }
 
-    public void addPerson(@PathVariable Driver driver) {
-        driverList.add(driverController.mapDriverToDTO(driver));
+    public void addPerson(DriverDTO driverDTO) {
+        driverList.add(driverController.mapFromDriverDTO(driverDTO));
     }
 
 }

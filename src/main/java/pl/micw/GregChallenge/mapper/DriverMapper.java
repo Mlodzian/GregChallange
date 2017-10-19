@@ -11,16 +11,21 @@ import pl.micw.GregChallenge.dto.DriverDTO;
 public class DriverMapper {
 
     public DriverDTO mapToDTO(Driver driver) {
-        DriverDTO driverDTO = new DriverDTO.Builder().setName(driver.getName()).build();
-        driverDTO.setTeam(driver.getTeam());
-        driverDTO.setAge(driver.getAge());
-        return driverDTO;
+        return DriverDTO.builder()
+                .name(driver.getName())
+                .team(driver.getTeam())
+                .age(driver.getAge())
+                .build();
     }
 
 
     public Driver mapFromDTO(DriverDTO driverDTO) {
-        Driver driver = new Driver.Builder().setName(driverDTO.getName()).setTeam(driverDTO.getTeam()).setAge(driverDTO.getAge()).build();
-        return driver;
+        return Driver.builder()
+                .name(driverDTO.getName())
+                .team(driverDTO.getTeam())
+                .age(driverDTO.getAge())
+                .build();
+
     }
 
 }

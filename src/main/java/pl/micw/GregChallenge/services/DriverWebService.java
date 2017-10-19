@@ -5,7 +5,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
-import pl.micw.GregChallenge.data.Driver;
+import pl.micw.GregChallenge.dto.DriverDTO;
 
 import java.util.List;
 
@@ -18,16 +18,14 @@ public class DriverWebService {
     @Autowired
     DriverService driverService;
 
-
-    @RequestMapping(value = "*", method = RequestMethod.GET)
-    public List<Driver> greetPerson() {
+    @RequestMapping(value = "drivers", method = RequestMethod.GET)
+    public List<DriverDTO> getDrivers() {
         return driverService.getDrivers();
     }
 
-    @RequestMapping(value = "*", method = RequestMethod.POST)
-    public void addPerson(@RequestBody Driver driver) {
-        driverService.addPerson(driver);
+    @RequestMapping(value = "drivers", method = RequestMethod.POST)
+    public void addDriver(@RequestBody DriverDTO driverDTO) {
+        driverService.addPerson(driverDTO);
     }
-
 
 }
